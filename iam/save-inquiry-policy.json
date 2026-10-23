@@ -1,0 +1,26 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "WriteLogs",
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+      "Resource": "arn:aws:logs:us-east-2:<ACCOUNT_ID>:*"
+    },
+    {
+      "Sid": "SaveInquiry",
+      "Effect": "Allow",
+      "Action": "dynamodb:PutItem",
+      "Resource": "arn:aws:dynamodb:us-east-2:<ACCOUNT_ID>:table/Inquiries"
+    },
+    {
+      "Sid": "SendEmail",
+      "Effect": "Allow",
+      "Action": "ses:SendEmail",
+      "Resource": [
+        "arn:aws:ses:us-east-2:<ACCOUNT_ID>:identity/*",
+        "arn:aws:ses:us-east-2:<ACCOUNT_ID>:configuration-set/my-first-configuration-set"
+      ]
+    }
+  ]
+}

@@ -6,19 +6,7 @@ I built every piece by hand in the AWS console, one service at a time, to unders
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    V([Visitor]) -->|DNS lookup| R53[Route 53]
-    V -->|HTTPS| CF[CloudFront<br/>+ ACM certificate]
-    CF -->|Origin Access Control| S3[(S3 bucket<br/>private)]
-    V -->|POST /inquiry| APIGW[API Gateway<br/>HTTP API<br/>CORS + throttling]
-    APIGW --> L[Lambda<br/>saveInquiry<br/>Python 3.14]
-    L -->|PutItem| DDB[(DynamoDB<br/>Inquiries)]
-    L -->|SendEmail| SES[SES<br/>DKIM-signed]
-    SES --> INBOX([My inbox])
-    L -.->|logs| CW[CloudWatch<br/>logs + alarm]
-    CW -.->|Errors ≥ 1| SNS[SNS] -.-> INBOX
-```
+![Architecture](serverless-photography-website-purple.png)
 
 ## Services and why I chose them
 
